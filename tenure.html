@@ -50,9 +50,11 @@
 	    height = 400 - margin.top - margin.bottom;
 	
 	var svg = d3.select("body") 
-	.append("svg")
-	.attr("width", width + margin.left + margin.right)
-	.attr("height", height + margin.top + margin.bottom);
+		.append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
 	
 	d3.csv('tenure.csv', function(error, data){
@@ -79,9 +81,6 @@
 		.orient("left")
 		.ticks(10);
 		
-		
-		
-		
 		svg.append("g")
 		.attr("class", "x axis")
 		.attr("transform", "translate(0, "+ height +")")
@@ -102,7 +101,17 @@
 		.attr("height", function(d){return height - y(d.tenure); })
 		.attr("x", function(d, i){ return x(d.president); })
 		.attr("y", function (d){return y(d.tenure); })
-		.attr("class", "bar");
+		.attr("class", "bar")
+		.on("mouseover", function(d){
+			tooltip
+			.style("display", "block")
+			.text("president: " + d.president + ", tenure:" + d.tenure);
+		})
+		.on("mouseout", function(d){
+			tooltip.style("display", "none")
+		});
+		
+		var tooltip = svg.append("text")
 		
 	})
 	
