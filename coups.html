@@ -31,6 +31,15 @@
 		
 	}
 	
+	.tooltip {
+		border: solid 1px cyan;
+		background: steelblue;
+		width: 100%;
+		height: 30px;
+		
+		
+ 	}
+	
 	 
 	
 	
@@ -52,29 +61,30 @@
 	var margin = {left:50, top:20, right:20, bottom:20}, 
 	    width  = 1200 - margin.left - margin.right, 
 	    height = 460 - margin.top - margin.bottom;
+		
+	var html = d3.select("body");
 	
-	var svg = d3.select("body") 
-		.append("svg")
+	var svg = html.append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 		.append("g")
 		    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 	
 	
-	d3.csv('tenure.csv', function(error, data){
+	d3.csv('coups.csv', function(error, data){
  
  
- //[{president:"Nguema", tenure:832}, {president:"Mugabe", tenure:432}]
+ //[{country:"Nguema", coups:832}, {country:"Mugabe", coups:432}]
  
  		
 		var y = d3.scale.linear()
 		.range([height, 0]) //fit into this range 
-		.domain([0, d3.max(data, function(d){return d.tenure;})]); //your data
+		.domain([0, d3.max(data, function(d){return d.coups;})]); //your data
 		
 		
 		var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .1)
-		.domain(data.map(function(d){return d.president; }));
+		.domain(data.map(function(d){return d.country; }));
 		
 		var xAxis = d3.svg.axis()
 		.scale(x)
@@ -102,20 +112,21 @@
 		.enter()
 		.append('rect')
 		.attr("width", x.rangeBand())
-		.attr("height", function(d){return height - y(d.tenure); })
-		.attr("x", function(d, i){ return x(d.president); })
-		.attr("y", function (d){return y(d.tenure); })
+		.attr("height", function(d){return height - y(d.coups); })
+		.attr("x", function(d, i){ return x(d.country); })
+		.attr("y", function (d){return y(d.coups); })
 		.attr("class", "bar")
 		.on("mouseover", function(d){
 			tooltip
 			.style("display", "block")
-			.text( "Head of State: " + d.president + ", Tenure:" + d.tenure);
+			.text( "Head of State: " + d.country + ", Tenure:" + d.coups) ;
 		})
 		.on("mouseout", function(d){
 			tooltip.style("display", "none")
 		});
 		
-		var tooltip = svg.append("text")
+		var tooltip = html.append("div")
+			.attr("class", "tooltip")
 		
 	})
 	

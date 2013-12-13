@@ -1,8 +1,14 @@
-president,tenure
-Nguema,35
-Mugabe,33
-Dos Santos,34
-Bashir,24
-Gaddafi,42
-Mubarak,31
-Kabila,13
+president,tenure, age, salary
+Nguema ,35, 71, 4000
+Mugabe,33, 90, 1500
+Dos Santos,34, 71, 4000
+Bashir,24, 69, 4000
+Gaddafi,42, 69, 4000
+Mubarak,31, 83, 4000
+Kabila,13,  42, 4000
+Kagame,13, 56, 4000
+Pohamba, 7, 78, 4000
+Campaore, 25, 62, 4000
+Museveni, 26, 69, 4000
+Mswati, 18, 45, 4000
+Al-Bashir, 20, 69, 4000
